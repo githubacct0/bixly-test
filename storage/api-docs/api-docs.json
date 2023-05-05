@@ -1,0 +1,981 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Vehicle Management System Api Documentation",
+        "description": "L5 Swagger API Documentation for Laravel Project Pharmacy",
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000/",
+            "description": "API Server"
+        }
+    ],
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Login User",
+                "description": "Login a user",
+                "operationId": "login",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user1@mail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "PassWord12345"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "USer Logged in"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page Not Found "
+                    }
+                }
+            }
+        },
+        "/api/boats": {
+            "get": {
+                "tags": [
+                    "Boats"
+                ],
+                "summary": "Get List of all Boats",
+                "description": "Returns List of all boats",
+                "operationId": "boatIndex",
+                "responses": {
+                    "200": {
+                        "description": "A list of boats"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Boats"
+                ],
+                "summary": "Store a boat",
+                "description": "Store boat",
+                "operationId": "boatStore",
+                "requestBody": {
+                    "description": "Pass boat data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "make",
+                                    "model",
+                                    "year",
+                                    "seats",
+                                    "color",
+                                    "vin",
+                                    "current_mileage",
+                                    "service_interval",
+                                    "next_service"
+                                ],
+                                "properties": {
+                                    "make": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "KIA"
+                                    },
+                                    "model": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Sportage"
+                                    },
+                                    "year": {
+                                        "type": "integer",
+                                        "format": "text",
+                                        "example": "2023"
+                                    },
+                                    "seats": {
+                                        "type": "integer",
+                                        "format": "text",
+                                        "example": "4"
+                                    },
+                                    "color": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "White"
+                                    },
+                                    "vin": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "KUCHBELIKH465452"
+                                    },
+                                    "current_mileage": {
+                                        "type": "decimal",
+                                        "format": "text",
+                                        "example": "11.5"
+                                    },
+                                    "service_interval": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "3000KM"
+                                    },
+                                    "next_service": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "6000KM"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Display a boat"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page Not Found "
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/api/boats/{id}": {
+            "get": {
+                "tags": [
+                    "Boats"
+                ],
+                "summary": "Get a Boat",
+                "description": "Display a boat",
+                "operationId": "boatShow",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the boat to show",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "show a boat"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Boats"
+                ],
+                "summary": "Update a boat",
+                "description": "Update boat",
+                "operationId": "boatUpdate",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the boat to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass boat data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "make",
+                                    "model",
+                                    "year",
+                                    "seats",
+                                    "color",
+                                    "vin",
+                                    "current_mileage",
+                                    "service_interval",
+                                    "next_service"
+                                ],
+                                "properties": {
+                                    "make": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "KIA"
+                                    },
+                                    "model": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Sportage"
+                                    },
+                                    "year": {
+                                        "type": "integer",
+                                        "format": "text",
+                                        "example": "2023"
+                                    },
+                                    "seats": {
+                                        "type": "integer",
+                                        "format": "text",
+                                        "example": "4"
+                                    },
+                                    "color": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "White"
+                                    },
+                                    "vin": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "KUCHBELIKH465452"
+                                    },
+                                    "current_mileage": {
+                                        "type": "decimal",
+                                        "format": "text",
+                                        "example": "11.5"
+                                    },
+                                    "service_interval": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "3000KM"
+                                    },
+                                    "next_service": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "6000KM"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update a boat"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page Not Found "
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Boats"
+                ],
+                "summary": "Get a Boat",
+                "description": "Delete a boat",
+                "operationId": "boatDestroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the boat to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete a boat"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/api/cars": {
+            "get": {
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Get List of all Cars",
+                "description": "Returns List of all cars",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "A list of cars"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Store a car",
+                "description": "Store car",
+                "operationId": "store",
+                "requestBody": {
+                    "description": "Pass car data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "make",
+                                    "model",
+                                    "year",
+                                    "seats",
+                                    "color",
+                                    "vin",
+                                    "current_mileage",
+                                    "service_interval",
+                                    "next_service"
+                                ],
+                                "properties": {
+                                    "make": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "KIA"
+                                    },
+                                    "model": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Sportage"
+                                    },
+                                    "year": {
+                                        "type": "integer",
+                                        "format": "text",
+                                        "example": "2023"
+                                    },
+                                    "seats": {
+                                        "type": "integer",
+                                        "format": "text",
+                                        "example": "4"
+                                    },
+                                    "color": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "White"
+                                    },
+                                    "vin": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "KUCHBELIKH465452"
+                                    },
+                                    "current_mileage": {
+                                        "type": "decimal",
+                                        "format": "text",
+                                        "example": "11.5"
+                                    },
+                                    "service_interval": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "3000KM"
+                                    },
+                                    "next_service": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "6000KM"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Display a car"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page Not Found "
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/api/cars/{id}": {
+            "get": {
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Get a Car",
+                "description": "Display a car",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the car to show",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "show a car"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Update a car",
+                "description": "Update car",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the car to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass car data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "make",
+                                    "model",
+                                    "year",
+                                    "seats",
+                                    "color",
+                                    "vin",
+                                    "current_mileage",
+                                    "service_interval",
+                                    "next_service"
+                                ],
+                                "properties": {
+                                    "make": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "KIA"
+                                    },
+                                    "model": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Sportage"
+                                    },
+                                    "year": {
+                                        "type": "integer",
+                                        "format": "text",
+                                        "example": "2023"
+                                    },
+                                    "seats": {
+                                        "type": "integer",
+                                        "format": "text",
+                                        "example": "4"
+                                    },
+                                    "color": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "White"
+                                    },
+                                    "vin": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "KUCHBELIKH465452"
+                                    },
+                                    "current_mileage": {
+                                        "type": "decimal",
+                                        "format": "text",
+                                        "example": "11.5"
+                                    },
+                                    "service_interval": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "3000KM"
+                                    },
+                                    "next_service": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "6000KM"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update a car"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page Not Found "
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Cars"
+                ],
+                "summary": "Get a Car",
+                "description": "Delete a car",
+                "operationId": "carDestroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the car to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete a car"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/": {
+            "get": {
+                "description": "Home page",
+                "responses": {
+                    "default": {
+                        "description": "Welcome page"
+                    }
+                }
+            }
+        },
+        "/api/trucks": {
+            "get": {
+                "tags": [
+                    "Trucks"
+                ],
+                "summary": "Get List of all Trucks",
+                "description": "Returns List of all trucks",
+                "operationId": "truckIndex",
+                "responses": {
+                    "200": {
+                        "description": "A list of trucks"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Trucks"
+                ],
+                "summary": "Store a truck",
+                "description": "Store truck",
+                "operationId": "truckStore",
+                "requestBody": {
+                    "description": "Pass truck data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "make",
+                                    "model",
+                                    "year",
+                                    "seats",
+                                    "color",
+                                    "vin",
+                                    "current_mileage",
+                                    "service_interval",
+                                    "next_service"
+                                ],
+                                "properties": {
+                                    "make": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "KIA"
+                                    },
+                                    "model": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Sportage"
+                                    },
+                                    "year": {
+                                        "type": "integer",
+                                        "format": "text",
+                                        "example": "2023"
+                                    },
+                                    "seats": {
+                                        "type": "integer",
+                                        "format": "text",
+                                        "example": "4"
+                                    },
+                                    "color": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "White"
+                                    },
+                                    "vin": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "KUCHBELIKH465452"
+                                    },
+                                    "current_mileage": {
+                                        "type": "decimal",
+                                        "format": "text",
+                                        "example": "11.5"
+                                    },
+                                    "service_interval": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "3000KM"
+                                    },
+                                    "next_service": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "6000KM"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Display a truck"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page Not Found "
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/api/trucks/{id}": {
+            "get": {
+                "tags": [
+                    "Trucks"
+                ],
+                "summary": "Show a Truck",
+                "description": "Display a truck",
+                "operationId": "truckShow",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the truck to show",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "show a truck"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Trucks"
+                ],
+                "summary": "Update a truck",
+                "description": "Update truck",
+                "operationId": "truckUpdate",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the truck to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass truck data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "make",
+                                    "model",
+                                    "year",
+                                    "seats",
+                                    "color",
+                                    "vin",
+                                    "current_mileage",
+                                    "service_interval",
+                                    "next_service"
+                                ],
+                                "properties": {
+                                    "make": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "KIA"
+                                    },
+                                    "model": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Sportage"
+                                    },
+                                    "year": {
+                                        "type": "integer",
+                                        "format": "text",
+                                        "example": "2023"
+                                    },
+                                    "seats": {
+                                        "type": "integer",
+                                        "format": "text",
+                                        "example": "4"
+                                    },
+                                    "color": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "White"
+                                    },
+                                    "vin": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "KUCHBELIKH465452"
+                                    },
+                                    "current_mileage": {
+                                        "type": "decimal",
+                                        "format": "text",
+                                        "example": "11.5"
+                                    },
+                                    "service_interval": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "3000KM"
+                                    },
+                                    "next_service": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "6000KM"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update a truck"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page Not Found "
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Trucks"
+                ],
+                "summary": "Get a Truck",
+                "description": "Delete a truck",
+                "operationId": "truckDestroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the truck to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete a truck"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerToken": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
